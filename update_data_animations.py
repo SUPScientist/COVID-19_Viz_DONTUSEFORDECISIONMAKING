@@ -12,7 +12,7 @@ import os
 subprocess.call(['curl',
                  '-o', 
                  'Data/data_new.csv', 
-                 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv'])
+                 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'])
 
 # Before rewriting the main file with the new one, simple check to make sure it is bigger
 old_filename = 'data.csv'
@@ -25,11 +25,12 @@ new_filepath = os.path.join('Data', new_filename)
 new_file_stats = os.stat(new_filepath)
 new_file_size = new_file_stats.st_size
 
-if new_file_size >= old_file_size:
-    subprocess.call(['cp', new_filepath, old_filepath])
-    
-    subprocess.call(['python', 'COVID19_Viz_basemapFrames_US.py'])
-    subprocess.call(['python', 'COVID19_Viz_makeMovie_US.py'])
-    
-    subprocess.call(['python', 'COVID19_Viz_basemapFrames.py'])
-    subprocess.call(['python', 'COVID19_Viz_makeMovie.py'])
+# Rerun these scripts if new file is bigger, simple logic to prevent running/rewriting if something upstream changes
+# if new_file_size >= old_file_size:
+subprocess.call(['cp', new_filepath, old_filepath])
+
+subprocess.call(['python', 'COVID19_Viz_basemapFrames_US.py'])
+subprocess.call(['python', 'COVID19_Viz_makeMovie_US.py'])
+
+subprocess.call(['python', 'COVID19_Viz_basemapFrames.py'])
+subprocess.call(['python', 'COVID19_Viz_makeMovie.py'])
