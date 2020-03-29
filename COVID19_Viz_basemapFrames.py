@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 
 #%% Pull in data
-filename = 'data_20200315.csv'
+filename = 'data_global.csv'
 filepath = os.path.join('Data', filename)
 df = pd.read_csv(filepath)
 
